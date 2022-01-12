@@ -65,6 +65,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DetailViewController *dc = [DetailViewController new];
+    dc.device = [self.devices objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:dc animated:YES];
 }
 
@@ -75,6 +76,7 @@
     
     __weak typeof(self) weakSelf = self;
     [[CoreDataController sharedCache]getAllDevices:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {
+        
         if (success == true) {
             weakSelf.devices = objects;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -82,6 +84,17 @@
             });
         } else {
             NSLog(@"Error: Could not retrieve device data");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error loading data" preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *tryLoadingData = [UIAlertAction actionWithTitle:@"Try again" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    [weakSelf getDeviceData];
+                }];
+                [alert addAction:tryLoadingData];
+                [weakSelf presentViewController:alert animated:true completion:nil];
+            });
+            
         }
     }];
 }
