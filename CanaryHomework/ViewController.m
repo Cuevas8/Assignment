@@ -15,6 +15,7 @@
 
 @property(nonatomic, retain) UITableView *tableView;
 @property(nonatomic, retain) UILayoutGuide *safeArea;
+@property(nonatomic, retain) NSArray *devices;
 
 @end
 
@@ -27,6 +28,7 @@
     
     self.title = @"Devices";
     // Do any additional setup after loading the view.
+    [self getDeviceData];
     self.safeArea = self.view.layoutMarginsGuide;
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupTableView];
@@ -49,13 +51,14 @@
 #pragma mark - UITableView Data Source
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    NSDictionary *device = [self.devices objectAtIndex:indexPath.row];
     UITableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.textLabel.text = @"data";
+    cell.textLabel.text = [NSString stringWithFormat:@"%@",[device valueForKey:@"name"]];
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.devices.count;
 }
 
 #pragma mark UITableView Delegate 
@@ -63,6 +66,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DetailViewController *dc = [DetailViewController new];
     [self.navigationController pushViewController:dc animated:YES];
+}
+
+
+#pragma  mark Get Device Data
+
+-(void) getDeviceData {
+    
+    __weak typeof(self) weakSelf = self;
+    [[CoreDataController sharedCache]getAllDevices:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {
+        if (success == true) {
+            weakSelf.devices = objects;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
+        } else {
+            NSLog(@"Error: Could not retrieve device data");
+        }
+    }];
 }
 
 @end

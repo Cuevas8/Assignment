@@ -9,7 +9,7 @@
 #ifndef Keys_h
 #define Keys_h
 
-#define SERVER_HOST @"fullstack-challenge-api.herokuapp.com"
+#define SERVER_HOST @"canary-homework-test.herokuapp.com"
 #define SERVER_URL [NSString stringWithFormat:@"https://%@", SERVER_HOST]
 
 #endif /* Keys_h */
