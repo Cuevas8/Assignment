@@ -19,8 +19,6 @@
 
 @end
 
-
-
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -69,11 +67,9 @@
     [self.navigationController pushViewController:dc animated:YES];
 }
 
-
 #pragma  mark Get Device Data
 
 -(void) getDeviceData {
-    
     __weak typeof(self) weakSelf = self;
     [[CoreDataController sharedCache]getAllDevices:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {
         
@@ -82,6 +78,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
             });
+            
         } else {
             NSLog(@"Error: Could not retrieve device data");
             
@@ -94,7 +91,6 @@
                 [alert addAction:tryLoadingData];
                 [weakSelf presentViewController:alert animated:true completion:nil];
             });
-            
         }
     }];
 }
