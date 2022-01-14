@@ -11,6 +11,7 @@
 
 @interface DetailViewController ()
 
+
 @end
 
 @implementation DetailViewController
@@ -20,7 +21,6 @@
     // Do any additional setup after loading the view.
     self.title = [NSString stringWithFormat:@"About: %@", self.device.name];
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self renderUI:[self calculateDeviceReadings:self.device.readings]];
 }
 
@@ -29,69 +29,116 @@
     NSDictionary *tempData = deviceData[@"tempData"];
     NSDictionary *humidData = deviceData[@"humidData"];
     
-    float screenWidth = [[UIScreen mainScreen] bounds].size.width;
-    //float screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    CGFloat padding = 10.00;
     
-    //Temp Label
-    UILabel *tempLabel = [[UILabel alloc]initWithFrame:CGRectMake(screenWidth/2 - 100, 100, 200, 50)];
+    //Temperature Label
+    UILabel *tempLabel = [UILabel new];
     tempLabel.backgroundColor = [UIColor systemGrayColor];
     tempLabel.text = [NSString stringWithFormat:@"Temperature"];
     tempLabel.textAlignment = NSTextAlignmentCenter;
+    tempLabel.translatesAutoresizingMaskIntoConstraints = false;
     
-    //Min Label
-    UILabel *tempMinLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 200, 100, 100)];
+    [[self view]addSubview:tempLabel];
+
+    [[tempLabel.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor]setActive:true];
+    [[tempLabel.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor]setActive:true];
+    [[tempLabel.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor]setActive:true];
+    [[tempLabel.heightAnchor constraintEqualToConstant:50]setActive:true];
+    
+    //Temp Min Label
+    UILabel *tempMinLabel = [UILabel new];
     tempMinLabel.backgroundColor = [UIColor systemRedColor];
     tempMinLabel.text = (tempData[@"min"]) ? [NSString stringWithFormat:@"Min: %@", tempData[@"min"]] : @"-";
     tempMinLabel.textAlignment = NSTextAlignmentCenter;
+    tempMinLabel.translatesAutoresizingMaskIntoConstraints = false;
     
-    //Avg Label
-    UILabel *tempAvgLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 200, 100, 100)];
+    [[self view]addSubview:tempMinLabel];
+    
+    [[tempMinLabel.topAnchor constraintEqualToAnchor:tempLabel.bottomAnchor constant:padding]setActive:true];
+    [[tempMinLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]setActive:true];
+    [[tempMinLabel.widthAnchor constraintEqualToConstant:200]setActive:true];
+    [[tempMinLabel.heightAnchor constraintEqualToConstant:50]setActive:true];
+  
+    //Temp Avg Label
+    UILabel *tempAvgLabel = [UILabel new];
     tempAvgLabel.backgroundColor = [UIColor systemBlueColor];
     tempAvgLabel.text = (tempData[@"avg"]) ? [NSString stringWithFormat:@"Avg: %@", tempData[@"avg"]] : @"-";
     tempAvgLabel.textAlignment = NSTextAlignmentCenter;
+    tempAvgLabel.translatesAutoresizingMaskIntoConstraints = false;
     
-    //Max Label
-    UILabel *tempMaxLabel = [[UILabel alloc]initWithFrame:CGRectMake(250, 200, 100, 100)];
+    [[self view] addSubview:tempAvgLabel];
+    
+    [[tempAvgLabel.topAnchor constraintEqualToAnchor:tempMinLabel.bottomAnchor constant:padding]setActive:true];
+    [[tempAvgLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]setActive:true];
+    [[tempAvgLabel.widthAnchor constraintEqualToConstant:200]setActive:true];
+    [[tempAvgLabel.heightAnchor constraintEqualToConstant:50]setActive:true];
+    
+    //Temp Max Label
+    UILabel *tempMaxLabel = [UILabel new];
     tempMaxLabel.backgroundColor = [UIColor systemYellowColor];
     tempMaxLabel.text = (tempData[@"max"]) ? [NSString stringWithFormat:@"Max: %@", tempData[@"max"]] : @"-";
     tempMaxLabel.textAlignment = NSTextAlignmentCenter;
+    tempMaxLabel.translatesAutoresizingMaskIntoConstraints = false;
+    
+    [[self view] addSubview:tempMaxLabel];
+    
+    [[tempMaxLabel.topAnchor constraintEqualToAnchor:tempAvgLabel.bottomAnchor constant:padding]setActive:true];
+    [[tempMaxLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]setActive:true];
+    [[tempMaxLabel.widthAnchor constraintEqualToConstant:200]setActive:true];
+    [[tempMaxLabel.heightAnchor constraintEqualToConstant:50]setActive:true];
     
     //Humidity Label
-    UILabel *humidLabel = [[UILabel alloc]initWithFrame:CGRectMake(screenWidth/2 - 100, 400, 200, 50)];
+    UILabel *humidLabel = [UILabel new];
     humidLabel.backgroundColor = [UIColor systemGrayColor];
     humidLabel.text = [NSString stringWithFormat:@"Humidity"];
     humidLabel.textAlignment = NSTextAlignmentCenter;
+    humidLabel.translatesAutoresizingMaskIntoConstraints = false;
     
-    //Min Label
-    UILabel *humidMinLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 500, 100, 100)];
+    [[self view]addSubview:humidLabel];
+
+    [[humidLabel.topAnchor constraintEqualToAnchor:tempMaxLabel.bottomAnchor constant:padding]setActive:true];
+    [[humidLabel.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor]setActive:true];
+    [[humidLabel.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor]setActive:true];
+    [[humidLabel.heightAnchor constraintEqualToConstant:50]setActive:true];
+
+    //Humidity Min Label
+    UILabel *humidMinLabel = [UILabel new];
     humidMinLabel.backgroundColor = [UIColor systemRedColor];
     humidMinLabel.text = (humidData[@"min"]) ? [NSString stringWithFormat:@"Min: %@", humidData[@"min"]] : @"-";
     humidMinLabel.textAlignment = NSTextAlignmentCenter;
+    humidMinLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [[self view] addSubview:humidMinLabel];
     
-    //Avg Label
-    UILabel *humidAvgLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 500, 100, 100)];
+    [[humidMinLabel.topAnchor constraintEqualToAnchor:humidLabel.bottomAnchor constant:padding]setActive:true];
+    [[humidMinLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]setActive:true];
+    [[humidMinLabel.widthAnchor constraintEqualToConstant:200]setActive:true];
+    [[humidMinLabel.heightAnchor constraintEqualToConstant:50]setActive:true];
+    
+    //Humidity Avg Label
+    UILabel *humidAvgLabel = [UILabel new];
     humidAvgLabel.backgroundColor = [UIColor systemBlueColor];
     humidAvgLabel.text = (humidData[@"avg"]) ? [NSString stringWithFormat:@"Avg: %@", humidData[@"avg"]] : @"-";
     humidAvgLabel.textAlignment = NSTextAlignmentCenter;
+    humidAvgLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [[self view] addSubview:humidAvgLabel];
     
-    //Max Label
-    UILabel *humidMaxLabel = [[UILabel alloc]initWithFrame:CGRectMake(250, 500, 100, 100)];
+    [[humidAvgLabel.topAnchor constraintEqualToAnchor:humidMinLabel.bottomAnchor constant:padding]setActive:true];
+    [[humidAvgLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]setActive:true];
+    [[humidAvgLabel.widthAnchor constraintEqualToConstant:200]setActive:true];
+    [[humidAvgLabel.heightAnchor constraintEqualToConstant:50]setActive:true];
+    
+    //Humidity Max Label
+    UILabel *humidMaxLabel = [UILabel new];
     humidMaxLabel.backgroundColor = [UIColor systemYellowColor];
     humidMaxLabel.text = (humidData[@"max"]) ? [NSString stringWithFormat:@"Max: %@", humidData[@"max"]] : @"-";
     humidMaxLabel.textAlignment = NSTextAlignmentCenter;
+    humidMaxLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [[self view] addSubview:humidMaxLabel];
     
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[weakSelf view]addSubview:tempLabel];
-        [[weakSelf view]addSubview:tempMinLabel];
-        [[weakSelf view]addSubview:tempAvgLabel];
-        [[weakSelf view]addSubview:tempMaxLabel];
-        
-        [[weakSelf view]addSubview:humidLabel];
-        [[weakSelf view]addSubview:humidMinLabel];
-        [[weakSelf view]addSubview:humidAvgLabel];
-        [[weakSelf view]addSubview:humidMaxLabel];
-    });
+    [[humidMaxLabel.topAnchor constraintEqualToAnchor:humidAvgLabel.bottomAnchor constant:padding]setActive:true];
+    [[humidMaxLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]setActive:true];
+    [[humidMaxLabel.widthAnchor constraintEqualToConstant:200]setActive:true];
+    [[humidMaxLabel.heightAnchor constraintEqualToConstant:50]setActive:true];
 }
 
 -(NSDictionary *) calculateDeviceReadings:(NSSet *) readings {
@@ -127,6 +174,5 @@
     }
     return deviceReading;
 }
-
 
 @end
