@@ -65,12 +65,10 @@
     DetailViewController *dc = [DetailViewController new];
     dc.device = [self.devices objectAtIndex:indexPath.row];
     
-    NSLog(@"Device ID: %@", dc.device.deviceID);
-    
     [[CoreDataController sharedCache] getReadingsForDevice:dc.device.deviceID completionBlock:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {
         if (success) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationController pushViewController:dc animated:YES];
+                [self.navigationController pushViewController:dc animated:YES];
             });
         } else {
             NSLog(@"Error getting device readings");
@@ -92,19 +90,22 @@
             
         } else {
             NSLog(@"Error: Could not retrieve device data");
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error loading data" preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *tryLoadingData = [UIAlertAction actionWithTitle:@"Try again" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                    [weakSelf getDeviceData];
-                }];
-                [alert addAction:tryLoadingData];
-                [weakSelf presentViewController:alert animated:true completion:nil];
-            });
-            
+            [self displayAlertErrorLoadingDevices];
         }
     }];
+}
+
+-(void) displayAlertErrorLoadingDevices {
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error loading data" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *tryLoadingData = [UIAlertAction actionWithTitle:@"Try again" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [weakSelf getDeviceData];
+        }];
+        [alert addAction:tryLoadingData];
+        [weakSelf presentViewController:alert animated:true completion:nil];
+    });
 }
 
 @end

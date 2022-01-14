@@ -45,7 +45,7 @@
     WaitForBlock();
 }
 
-//Test for getting device from CoreDataController
+//Test for getting all devices from CoreDataController
 -(void) testCoreDataControllerGetDevices{
     TestNeedsToWaitForBlock();
     [[CoreDataController sharedCache] getAllDevices:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {
@@ -56,7 +56,7 @@
     }];
     WaitForBlock();
 }
-
+//Test for getting device readings
 -(void) testCoreDataGetDeviceReadings{
     TestNeedsToWaitForBlock();
     [[CoreDataController sharedCache] getReadingsForDevice:@"2" completionBlock:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {

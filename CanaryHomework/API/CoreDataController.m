@@ -94,6 +94,7 @@
         }];
     });
 }
+
 - (void)insertObjectsWithDictionaries:(NSArray *)objectDictionaries withCreationBlock:(NSManagedObject *(^)(NSDictionary *, NSManagedObjectContext *))creationBlock completionBlock:(void(^)(NSArray *, NSError *))completionBlock {
 
     NSManagedObjectContext *insertContext = self.privateObjectContext;
