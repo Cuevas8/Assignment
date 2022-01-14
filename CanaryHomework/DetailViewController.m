@@ -19,21 +19,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = [NSString stringWithFormat:@"About: %@", self.device.name];
-    
-
-    
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self drawUI:[self calculateDeviceReadings:self.device.readings]];
+    [self renderUI:[self calculateDeviceReadings:self.device.readings]];
 }
 
 #pragma Draw UI
--(void) drawUI: (NSDictionary *)deviceData {
+-(void) renderUI: (NSDictionary *)deviceData {
     NSDictionary *tempData = deviceData[@"tempData"];
     NSDictionary *humidData = deviceData[@"humidData"];
     
     float screenWidth = [[UIScreen mainScreen] bounds].size.width;
-    float screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    //float screenHeight = [[UIScreen mainScreen] bounds].size.height;
     
     //Temp Label
     UILabel *tempLabel = [[UILabel alloc]initWithFrame:CGRectMake(screenWidth/2 - 100, 100, 200, 50)];
@@ -97,7 +94,6 @@
     });
 }
 
-
 -(NSDictionary *) calculateDeviceReadings:(NSSet *) readings {
     
     NSMutableDictionary *deviceReading = [NSMutableDictionary new];
@@ -129,7 +125,6 @@
     if (humidValues.count > 0) {
         [deviceReading setValue:@{@"min": humidValues.firstObject, @"max": humidValues.lastObject, @"avg": [NSNumber numberWithFloat:(humidTotal/humidValues.count)]} forKey:@"humidData"];
     }
-    
     return deviceReading;
 }
 

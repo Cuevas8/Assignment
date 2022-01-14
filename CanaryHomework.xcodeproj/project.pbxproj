@@ -30,7 +30,18 @@
 		B2E7095523341732009B864F /* Reading+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E7094F23341732009B864F /* Reading+CoreDataProperties.m */; };
 		B2E7095623341732009B864F /* Device+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E7095223341732009B864F /* Device+CoreDataClass.m */; };
 		B2E7095723341732009B864F /* Device+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E7095323341732009B864F /* Device+CoreDataProperties.m */; };
+		EF0D9AE72790EF8F00D8C503 /* CanaryHomeworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0D9AE62790EF8F00D8C503 /* CanaryHomeworkTests.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EF0D9AE82790EF8F00D8C503 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2E709252333FF38009B864F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B2E7092C2333FF38009B864F;
+			remoteInfo = CanaryHomework;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B21CD46A233A9180006994CA /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
@@ -80,10 +91,19 @@
 		B2E7095123341732009B864F /* Device+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Device+CoreDataClass.h"; sourceTree = "<group>"; };
 		B2E7095223341732009B864F /* Device+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Device+CoreDataClass.m"; sourceTree = "<group>"; };
 		B2E7095323341732009B864F /* Device+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Device+CoreDataProperties.m"; sourceTree = "<group>"; };
+		EF0D9AE42790EF8F00D8C503 /* CanaryHomeworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CanaryHomeworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF0D9AE62790EF8F00D8C503 /* CanaryHomeworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanaryHomeworkTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B2E7092A2333FF38009B864F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF0D9AE12790EF8F00D8C503 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				B2E7092F2333FF38009B864F /* CanaryHomework */,
+				EF0D9AE52790EF8F00D8C503 /* CanaryHomeworkTests */,
 				B21CD3D5233A9180006994CA /* Frameworks */,
 				B2E7092E2333FF38009B864F /* Products */,
 			);
@@ -199,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				B2E7092D2333FF38009B864F /* CanaryHomework.app */,
+				EF0D9AE42790EF8F00D8C503 /* CanaryHomeworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,6 +256,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		EF0D9AE52790EF8F00D8C503 /* CanaryHomeworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				EF0D9AE62790EF8F00D8C503 /* CanaryHomeworkTests.m */,
+			);
+			path = CanaryHomeworkTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -254,6 +284,24 @@
 			productReference = B2E7092D2333FF38009B864F /* CanaryHomework.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EF0D9AE32790EF8F00D8C503 /* CanaryHomeworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF0D9AEA2790EF8F00D8C503 /* Build configuration list for PBXNativeTarget "CanaryHomeworkTests" */;
+			buildPhases = (
+				EF0D9AE02790EF8F00D8C503 /* Sources */,
+				EF0D9AE12790EF8F00D8C503 /* Frameworks */,
+				EF0D9AE22790EF8F00D8C503 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF0D9AE92790EF8F00D8C503 /* PBXTargetDependency */,
+			);
+			name = CanaryHomeworkTests;
+			productName = CanaryHomeworkTests;
+			productReference = EF0D9AE42790EF8F00D8C503 /* CanaryHomeworkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -265,6 +313,10 @@
 				TargetAttributes = {
 					B2E7092C2333FF38009B864F = {
 						CreatedOnToolsVersion = 10.3;
+					};
+					EF0D9AE32790EF8F00D8C503 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = B2E7092C2333FF38009B864F;
 					};
 				};
 			};
@@ -282,6 +334,7 @@
 			projectRoot = "";
 			targets = (
 				B2E7092C2333FF38009B864F /* CanaryHomework */,
+				EF0D9AE32790EF8F00D8C503 /* CanaryHomeworkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -292,6 +345,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2E7093D2333FF39009B864F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF0D9AE22790EF8F00D8C503 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,7 +387,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EF0D9AE02790EF8F00D8C503 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF0D9AE72790EF8F00D8C503 /* CanaryHomeworkTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EF0D9AE92790EF8F00D8C503 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B2E7092C2333FF38009B864F /* CanaryHomework */;
+			targetProxy = EF0D9AE82790EF8F00D8C503 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B2E709442333FF39009B864F /* Debug */ = {
@@ -504,6 +580,44 @@
 			};
 			name = Release;
 		};
+		EF0D9AEB2790EF8F00D8C503 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bryan.CanaryHomeworkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CanaryHomework.app/CanaryHomework";
+			};
+			name = Debug;
+		};
+		EF0D9AEC2790EF8F00D8C503 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bryan.CanaryHomeworkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CanaryHomework.app/CanaryHomework";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -521,6 +635,15 @@
 			buildConfigurations = (
 				B2E709472333FF39009B864F /* Debug */,
 				B2E709482333FF39009B864F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF0D9AEA2790EF8F00D8C503 /* Build configuration list for PBXNativeTarget "CanaryHomeworkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF0D9AEB2790EF8F00D8C503 /* Debug */,
+				EF0D9AEC2790EF8F00D8C503 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

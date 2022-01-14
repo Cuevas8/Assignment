@@ -88,7 +88,7 @@
                     return [Reading readingFromDictionary:dictionary forDevice:deviceID managedObjectContext:insertContext];
 
                 } completionBlock:^(NSArray *objects, NSError *error) {
-                    
+                    completionBlock(true, true, objects);
                 }];
             }
         }];
@@ -98,10 +98,11 @@
 
     NSManagedObjectContext *insertContext = self.privateObjectContext;
     NSMutableArray *insertedObjects = [NSMutableArray new];
+    NSArray *validatedEntityObjects = [self validateEntity:objectDictionaries];
     
     __block NSError *error;
     [insertContext performBlockAndWait:^ {
-        for ( NSDictionary *objectDictionary in objectDictionaries )
+        for ( NSDictionary *objectDictionary in validatedEntityObjects )
         {
             NSManagedObject *managedObject = creationBlock(objectDictionary, insertContext);
             if ( managedObject != nil )
@@ -121,6 +122,27 @@
     {
         completionBlock(insertedObjects, error);
     }
+}
+
+-(NSArray *) validateEntity:(NSArray *) objectsDictionary {
+    NSMutableArray *validEntityObjects = [NSMutableArray new];
+    
+    NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+    numberFormatter.numberStyle = NSNumberFormatterNoStyle;
+    
+    for (NSDictionary *entity in objectsDictionary) {
+        NSMutableDictionary *validEntityObject = [NSMutableDictionary new];
+        
+        for(NSString *key in entity) {
+            if([key isEqualToString:@"value"]) {
+                [validEntityObject setValue:[numberFormatter numberFromString:[NSString stringWithFormat:@"%@",entity[key]]] forKey:[NSString stringWithFormat:@"%@",key]];
+            } else {
+                [validEntityObject setValue:[NSString stringWithFormat:@"%@",entity[key]] forKey:[NSString stringWithFormat:@"%@",key]];
+            }
+        }
+        [validEntityObjects addObject:validEntityObject];
+    }
+    return validEntityObjects;
 }
 
 @end
