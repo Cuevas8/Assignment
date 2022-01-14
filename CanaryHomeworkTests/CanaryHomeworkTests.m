@@ -8,6 +8,9 @@
 
 #import <XCTest/XCTest.h>
 #import "CoreDataController.h"
+#import "APIClient.h"
+
+
 
 @interface CanaryHomeworkTests : XCTestCase
 
@@ -15,26 +18,54 @@
 
 @implementation CanaryHomeworkTests
 
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-    
-    
-}
+#pragma mark Block Testing
+#define TestNeedsToWaitForBlock() __block BOOL blockFinished = NO
+#define BlockFinished() blockFinished = YES
+#define WaitForBlock() while (CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true) && !blockFinished)
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
-
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
+//Test for getting all devices from API
+-(void) testAPIGetAllDevice {
+    TestNeedsToWaitForBlock();
+    [[APIClient sharedClient] getDeviceWithCompletionBlock:^(BOOL success, id responseObject) {
+        XCTAssertTrue(success);
+        XCTAssertNotNil(responseObject);
+        
+        BlockFinished();
     }];
+    WaitForBlock();
+}
+//Test for getting all readings from a device from API
+-(void) testAPIGetDeviceReadings {
+    TestNeedsToWaitForBlock();
+    [[APIClient sharedClient] getDevice:@"2" readingsWithCompletionBlock:^(BOOL success, id responseObject) {
+        XCTAssertTrue(success);
+        XCTAssertNotNil(responseObject);
+        BlockFinished();
+    }];
+    WaitForBlock();
+}
+
+//Test for getting device from CoreDataController
+-(void) testCoreDataControllerGetDevices{
+    TestNeedsToWaitForBlock();
+    [[CoreDataController sharedCache] getAllDevices:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {
+        XCTAssertTrue(success);
+        XCTAssertTrue(completed);
+        XCTAssertTrue(objects.count > 0);
+        BlockFinished();
+    }];
+    WaitForBlock();
+}
+
+-(void) testCoreDataGetDeviceReadings{
+    TestNeedsToWaitForBlock();
+    [[CoreDataController sharedCache] getReadingsForDevice:@"2" completionBlock:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {
+        XCTAssertTrue(success);
+        XCTAssertTrue(completed);
+        XCTAssertTrue(objects.count > 0);
+        BlockFinished();
+    }];
+    WaitForBlock();
 }
 
 @end

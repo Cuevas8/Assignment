@@ -65,8 +65,9 @@
     DetailViewController *dc = [DetailViewController new];
     dc.device = [self.devices objectAtIndex:indexPath.row];
     
+    NSLog(@"Device ID: %@", dc.device.deviceID);
+    
     [[CoreDataController sharedCache] getReadingsForDevice:dc.device.deviceID completionBlock:^(BOOL completed, BOOL success, NSArray * _Nonnull objects) {
-        
         if (success) {
             dispatch_async(dispatch_get_main_queue(), ^{
                         [self.navigationController pushViewController:dc animated:YES];
@@ -101,6 +102,7 @@
                 [alert addAction:tryLoadingData];
                 [weakSelf presentViewController:alert animated:true completion:nil];
             });
+            
         }
     }];
 }
